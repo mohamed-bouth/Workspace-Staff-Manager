@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/workspace.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <aside class="side-bar">
+        <div class="side-bar-title-container">
+            <p>Workspace Manager</p>
+        </div>
+        <div class="search-input-container">
+            <input class="searchs-input" type="text" placeholder="Search for a name...">
+            <select class="searchs-input">
+                <option value="all">Search for a role...</option>
+            </select>
+        </div>
+        <div class="waiting-list">
+
+        </div>
+        <div class="add-btn-container">
+            <button class="add-btn">Add New worker +</button>
+        </div>
+    </aside>
+    <main class="hero-section">
+        <div class="hero-section-title">
+            <h1>Floor Plan</h1>
+        </div>
+        <div class="grid-container">
+            <div class="zone" id="zone-conference">
+                <div class="zone-header">
+                    <h4>Conference Room</h4>
+                    <button class="add-to-zone-btn" data-zone="conference">+</button>
+                </div>
+                <ul class="staff-in-zone-list">
+                </ul>
+            </div>
+
+            <div class="zone">
+                <div class="zone-header">
+                    <h4>Reception</h4>
+                    <button class="add-to-zone-btn">+</button>
+                </div>
+                <ul class="staff-in-zone-list"></ul>
+            </div>
+
+            <div class="zone">
+                <div class="zone-header">
+                    <h4>Server Room</h4>
+                    <button class="add-to-zone-btn">+</button>
+                </div>
+                <ul class="staff-in-zone-list"></ul>
+            </div>
+
+            <div class="zone">
+                <div class="zone-header">
+                    <h4>Security Room</h4>
+                    <button class="add-to-zone-btn">+</button>
+                </div>
+                <ul class="staff-in-zone-list"></ul>
+            </div>
+
+            <div class="zone">
+                <div class="zone-header">
+                    <h4>Staff Room</h4>
+                    <button class="add-to-zone-btn">+</button>
+                </div>
+                <ul class="staff-in-zone-list"></ul>
+            </div>
+
+            <div class="zone">
+                <div class="zone-header">
+                    <h4>Archives</h4>
+                    <button class="add-to-zone-btn">+</button>
+                </div>
+                <ul class="staff-in-zone-list"></ul>
+            </div>
+    </main>
+</body>
+
+</html>

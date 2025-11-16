@@ -1,0 +1,154 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.background-img {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.background-img img {
+    filter: blur(2px);
+    transform: scale(1.05);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.content-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 4vw;
+}
+
+.title-container {
+    width: 56%;
+    font-size: 64px;
+}
+
+.description-container {
+    width: 37%;
+    font-size: 20px;
+    margin: 40px 0 40px 0;
+    line-height: 32px;
+}
+
+.btn-container {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.primary-btn {
+    color: black;
+    width: 120px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.primary-btn:hover {
+    transform: scale(1.1);
+    transition: 0.5s ease-in-out;
+}
+
+.secondary-btn {
+    background-color: rgb(0, 0, 0, 0);
+    width: 120px;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.secondary-btn:hover {
+    transform: scale(1.1);
+    transition: 0.5s ease-in-out;
+}
+
+@media (max-width: 1373px) {
+    .title-container {
+        width: 70%;
+    }
+
+    .description-container {
+        width: 55%;
+    }
+}
+
+@media (max-width: 1080px) {
+    .title-container {
+        width: 80%;
+    }
+
+    .description-container {
+        width: 60%;
+    }
+}
+
+@media (max-width: 978px) {
+    .title-container {
+        width: 90%;
+    }
+
+    .description-container {
+        width: 55%;
+    }
+}
+
+@media (max-width: 857px) {
+    .content-container {
+        padding-left: 0;
+        align-items: center;
+    }
+
+    .btn-container {
+        width: auto;
+    }
+
+    .title-container {
+        text-align: center;
+        font-size: 48px;
+    }
+
+    .description-container {
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .title-container {
+        text-align: center;
+        font-size: 40px;
+    }
+
+    .description-container {
+        text-align: center;
+        font-size: 14px;
+        line-height: 20px;
+        width: 90%;
+    }
+}
