@@ -19,75 +19,7 @@ const emailInput = document.querySelector("#emailInput")
 const phoneInput = document.querySelector("#phoneInput")
 const urlInput = document.querySelector("#urlInput")
 
-let workersInformation = [
-    {
-        id: crypto.randomUUID(),
-        fullName: "Amina El Fassi",
-        role: "Project Manager",
-        email: "amina.elfassi@example.com",
-        phone: "+212612345678",
-        url: "https://randomuser.me/api/portraits/women/12.jpg",
-        experience: [
-            {
-                company: "TechVision",
-                companyRole: "Team Leader",
-                from: "2019-02-10",
-                to: "2024-08-01"
-            }
-        ]
-    },
-
-    {
-        id: crypto.randomUUID(),
-        fullName: "Karim Zahidi",
-        role: "Backend Developer",
-        email: "karim.zahidi@example.com",
-        phone: "+212677889900",
-        url: "https://randomuser.me/api/portraits/men/45.jpg",
-        experience: [
-            {
-                company: "SoftCore Labs",
-                companyRole: "NodeJS Developer",
-                from: "2021-04-15",
-                to: "2025-01-10"
-            }
-        ]
-    },
-
-    {
-        id: crypto.randomUUID(),
-        fullName: "Hiba Saad",
-        role: "UI/UX Designer",
-        email: "hiba.saad@example.com",
-        phone: "+212650778899",
-        url: "https://randomuser.me/api/portraits/women/33.jpg",
-        experience: [
-            {
-                company: "DesignFlow Studio",
-                companyRole: "Product Designer",
-                from: "2018-09-01",
-                to: "2023-06-20"
-            }
-        ]
-    },
-
-    {
-        id: crypto.randomUUID(),
-        fullName: "Omar Tazi",
-        role: "Network Administrator",
-        email: "omar.tazi@example.com",
-        phone: "+212699110022",
-        url: "https://randomuser.me/api/portraits/men/71.jpg",
-        experience: [
-            {
-                company: "NetWave",
-                companyRole: "Network Engineer",
-                from: "2020-01-12",
-                to: "2024-11-18"
-            }
-        ]
-    }
-];
+let workersInformation = []
 
 
 function renderworker() {
@@ -101,7 +33,7 @@ function renderworker() {
                     <p>${worker.role}</p>
                 </div>
                 <img class="info-icon" src="./assets/icons/question.png" alt="">`
-                waitingList.appendChild(workerCardContainer)
+        waitingList.appendChild(workerCardContainer)
     });
 }
 
@@ -119,14 +51,6 @@ function renderform() {
 }
 
 function renderexp() {
-    // <div class="exp-input-container">
-    //     <input class="exp-input" type="text" placeholder="Company">
-    //     <input class="exp-input" type="text" placeholder="Role">
-    //     <input class="exp-input" type="text" placeholder="From" onfocus="this.type='date'"
-    //     onblur="if(!this.value)this.type='text'">
-    //     <input class="exp-input" type="text" placeholder="to" onfocus="this.type='date'"
-    //     onblur="if(!this.value)this.type='text'">
-    // </div>
     const expInputContainer = document.createElement("div")
     expInputContainer.className = 'exp-input-container'
     expInputContainer.innerHTML = `<input class="exp-input" type="text" placeholder="Company">
@@ -148,48 +72,82 @@ expUl.addEventListener("click", (e) => {
 function InputValidation() {
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const isPhoneNumber = /^\+?\d{10,15}$/
-    if(nameInput.value === ""){
+    if (nameInput.value === "") {
         alert("you forgot name")
         return false
     }
-    if(roleInput.value === "all"){
+    if (roleInput.value === "all") {
         alert("you dont choose a role")
         return false
     }
-    if(!isEmail.test(emailInput.value)){
+    if (!isEmail.test(emailInput.value)) {
         alert("check your email")
         return false
     }
-    if(!isPhoneNumber.test((phoneInput.value).replace(/[^\d+]/g, ''))){
+    if (!isPhoneNumber.test((phoneInput.value).replace(/[^\d+]/g, ''))) {
         alert("check your phone number")
         return false
     }
-    if(urlInput.value === ""){
+    if (urlInput.value === "") {
         alert("you forgot URl")
         return false
     }
     const allExp = document.querySelectorAll(".exp-input-container")
-    console.log("allexp" , allExp)
-    if(allExp.length === 0){
+    if (allExp.length === 0) {
         alert("you forgot experience")
         return false
-    }else{
+    } else {
         let flag = true
         for (let index = 0; index < allExp.length; index++) {
             const inputs = allExp[index].querySelectorAll(".exp-input")
             for (let index = 0; index < 4; index++) {
-                if(inputs[index].value === ""){
+                if (inputs[index].value === "") {
                     flag = false
                     break
                 }
             }
         }
-        if(flag === false){
+        if (flag === false) {
             alert("check your experience input")
             return false
         }
     }
     return true
+}
+
+function workerInformationStorage() {
+    nameValue = nameInput.value
+    roleValue = roleInput.value
+    emailValue = emailInput.value
+    phoneValue = (phoneInput.value).replace(/[^\d+]/g, '')
+    urlValue = urlInput.value
+    let workerInformation = {
+        id: crypto.randomUUID(),
+        fullName: nameValue,
+        role: roleValue,
+        email: emailValue,
+        phone: phoneValue,
+        url: urlValue,
+        experience: []
+    }
+    const allExp = document.querySelectorAll(".exp-input-container")
+    for (let index = 0; index < allExp.length; index++) {
+        const inputs = allExp[index].querySelectorAll(".exp-input")
+        let inputsValue = []
+        for (let index = 0; index < 4; index++) {
+            inputsValue[index] = inputs[index].value
+        }
+        let exp = {
+            company: inputsValue[0],
+            companyRole: inputsValue[1],
+            from: inputsValue[2],
+            to: inputsValue[3]
+        }
+        workerInformation.experience.push(exp)
+    }
+    workersInformation.push(workerInformation)
+    console.log(workerInformation)
+    console.log(workersInformation)
 }
 
 addBtn.addEventListener("click", () => {
@@ -199,10 +157,12 @@ addBtn.addEventListener("click", () => {
 submitBtn.addEventListener("click", (event) => {
     event.preventDefault()
     let status = InputValidation()
-    if(status === false){
+    if (status === false) {
         return
     }
+    workerInformationStorage()
     renderform()
+    renderworker()
 })
 
 cancelBtn.addEventListener("click", (event) => {
