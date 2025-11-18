@@ -160,7 +160,7 @@ function InputValidation() {
         alert("check your email")
         return false
     }
-    if(!isPhoneNumber.test(phoneInput.value)){
+    if(!isPhoneNumber.test((phoneInput.value).replace(/[^\d+]/g, ''))){
         alert("check your phone number")
         return false
     }
