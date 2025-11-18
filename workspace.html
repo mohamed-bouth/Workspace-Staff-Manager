@@ -25,14 +25,14 @@
                 <option value="">Other Roles</option>
             </select>
         </div>
-        <div class="waiting-list">
+        <div id="waitingList" class="waiting-list">
             <div class="worker-card-container">
-                <img src="" alt="">
+                <img class="worker-img" src="" alt="">
                 <div>
-                    <p></p>
-                    <p></p>
+                    <p style="font-weight: bold;">mohamed bouth</p>
+                    <p>IT Guy</p>
                 </div>
-                <img src="" alt="">
+                <img class="info-icon" src="./assets/icons/question.png" alt="">
             </div>
         </div>
         <div class="add-btn-container">
@@ -106,28 +106,28 @@
             <form class="form">
                 <div class="firstinput">
                     <div class="firstinput-input">
-                        <input type="text" placeholder="Full Name">
+                        <input id="nameInput" type="text" placeholder="Full Name">
                     </div>
                     <div class="firstinput-input">
-                        <select class="searchs-input">
+                        <select id="roleInput" class="searchs-input">
                             <option value="all">Role</option>
-                            <option value="">Manager</option>
-                            <option value="">Receptionist</option>
-                            <option value="">Technicien IT</option>
-                            <option value="">Security Agent</option>
-                            <option value="">Cleaning Staff</option>
-                            <option value="">Other Roles</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Receptionist">Receptionist</option>
+                            <option value="Technicien IT">Technicien IT</option>
+                            <option value="Security Agent">Security Agent</option>
+                            <option value="Cleaning Staff">Cleaning Staff</option>
+                            <option value="Other Roles">Other Roles</option>
                         </select>
                     </div>
                 </div>
                 <div class="inputs">
-                    <input type="email" placeholder="Gmail">
+                    <input id="emailInput" type="email" placeholder="Gmail">
                 </div>
                 <div class="inputs">
-                    <input type="tel" placeholder="Phone Number">
+                    <input id="phoneInput" type="tel" placeholder="Phone Number">
                 </div>
                 <div class="inputs">
-                    <input type="url" placeholder="Photo URL">
+                    <input id="urlInput" type="url" placeholder="Photo URL">
                 </div>
                 <div style="position: relative;" class="inputs">
                     <div class="exp-container" type="text">Experience</div>

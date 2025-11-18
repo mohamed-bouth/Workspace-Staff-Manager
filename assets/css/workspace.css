@@ -372,6 +372,23 @@ body {
 .worker-card-container {
     width: 90%;
     height: 70px;
-    background-color: var(--color-primary);
+    background-color: lightgray;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.worker-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid;
+}
+
+.info-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
 }
