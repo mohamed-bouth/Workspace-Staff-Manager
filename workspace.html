@@ -17,13 +17,26 @@
             <input class="searchs-input" type="text" placeholder="Search for a name...">
             <select class="searchs-input">
                 <option value="all">Search for a role...</option>
+                <option value="">Manager</option>
+                <option value="">Receptionist</option>
+                <option value="">Technicien IT</option>
+                <option value="">Security Agent</option>
+                <option value="">Cleaning Staff</option>
+                <option value="">Other Roles</option>
             </select>
         </div>
         <div class="waiting-list">
-
+            <div class="worker-card-container">
+                <img src="" alt="">
+                <div>
+                    <p></p>
+                    <p></p>
+                </div>
+                <img src="" alt="">
+            </div>
         </div>
         <div class="add-btn-container">
-            <button class="add-btn">Add New worker +</button>
+            <button id="addBtn" class="add-btn">Add New worker +</button>
         </div>
     </aside>
     <main class="hero-section">
@@ -38,6 +51,7 @@
                 </div>
                 <ul class="staff-in-zone-list">
                 </ul>
+                <img class="div-img Conference" src="./assets/images/Salle-de-conference.png" alt="">
             </div>
 
             <div class="zone">
@@ -46,6 +60,7 @@
                     <button class="add-to-zone-btn">+</button>
                 </div>
                 <ul class="staff-in-zone-list"></ul>
+                <img class="div-img" src="./assets/images/Reception.png" alt="">
             </div>
 
             <div class="zone">
@@ -53,7 +68,9 @@
                     <h4>Server Room</h4>
                     <button class="add-to-zone-btn">+</button>
                 </div>
-                <ul class="staff-in-zone-list"></ul>
+                <ul class="staff-in-zone-list">
+                </ul>
+                <img class="div-img" src="./assets/images/Salle-des-serveurs.png" alt="">
             </div>
 
             <div class="zone">
@@ -62,6 +79,7 @@
                     <button class="add-to-zone-btn">+</button>
                 </div>
                 <ul class="staff-in-zone-list"></ul>
+                <img class="div-img" src="./assets/images/Salle-de-securite.png" alt="">
             </div>
 
             <div class="zone">
@@ -70,16 +88,63 @@
                     <button class="add-to-zone-btn">+</button>
                 </div>
                 <ul class="staff-in-zone-list"></ul>
+                <img class="div-img" src="./assets/images/Salle-du-personnel.png" alt="">
             </div>
 
             <div class="zone">
-                <div class="zone-header">
+                <div class="zone-header Archives">
                     <h4>Archives</h4>
                     <button class="add-to-zone-btn">+</button>
                 </div>
                 <ul class="staff-in-zone-list"></ul>
+                <img class="div-img" src="./assets/images/Salle-d-archives.png" alt="">
             </div>
     </main>
+    <div id="formOutContainer" class="form-out-container">
+        <div class="form-in-container">
+            <h2>Worker Form</h2>
+            <form class="form">
+                <div class="firstinput">
+                    <div class="firstinput-input">
+                        <input type="text" placeholder="Full Name">
+                    </div>
+                    <div class="firstinput-input">
+                        <select class="searchs-input">
+                            <option value="all">Role</option>
+                            <option value="">Manager</option>
+                            <option value="">Receptionist</option>
+                            <option value="">Technicien IT</option>
+                            <option value="">Security Agent</option>
+                            <option value="">Cleaning Staff</option>
+                            <option value="">Other Roles</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputs">
+                    <input type="email" placeholder="Gmail">
+                </div>
+                <div class="inputs">
+                    <input type="tel" placeholder="Phone Number">
+                </div>
+                <div class="inputs">
+                    <input type="url" placeholder="Photo URL">
+                </div>
+                <div style="position: relative;" class="inputs">
+                    <div class="exp-container" type="text">Experience</div>
+                    <button id="addExpBtn" class="add-exp-btn">
+                        <p>+</p>
+                    </button>
+                    <div class="exp-ul">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button id="submitBtn" class="submit-btn">Submit</button>
+                    <button id="cancelBtn" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="./assets/js/main.js"></script>
 </body>
 
 </html>
