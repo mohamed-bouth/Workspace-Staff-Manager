@@ -37,7 +37,9 @@ const zoneSettings = {
 
 function renderworker() {
     waitingList.innerHTML = ""
-    // zonesUl.forEach(zone => zone.innerHTML = "")
+    zonesUl.forEach(zone => {
+        zone.innerHTML = ""
+    });
     workersInformation.forEach(worker => {
         if (worker.zone === null) {
             const workerCardContainer = document.createElement("div")
@@ -220,6 +222,7 @@ function renderworkerINzone(data) {
             allowedRole.forEach(Role => {
                 if (worker.role === Role && worker.zone === null) {
                     const workerCard = document.createElement("div")
+                    workerCard.dataset.idd = worker.id
                     workerCard.className = "available-workers"
                     workerCard.innerHTML = `<img src="${worker.url}" alt="">
                                     <p>${worker.fullName} (${worker.role})</p>`
@@ -232,8 +235,15 @@ function renderworkerINzone(data) {
         zonesUl[index].innerHTML = ""
         optionStatus = false
     }
+    return index
+}
 
-
+function workerChangeZone(idd, data) {
+    workersInformation.forEach(worker => {
+        if (worker.id === idd) {
+            worker.zone = data
+        }
+    });
 }
 
 addBtn.addEventListener("click", () => {
@@ -263,11 +273,42 @@ addExpBtn.addEventListener("click", (event) => {
 
 zonsBtn.forEach(zonBtn => {
     zonBtn.addEventListener("click", () => {
-        const data = zonBtn.dataset.zone
-        console.log(data)
-        renderworkerINzone(data)
+        const data = zonBtn.dataset.zone;
+
+        allowed = zoneSettings[data]
+        console.log(allowed)
+        let isNull = false
+        workersInformation.forEach(worker => {
+            if (worker.zone === null) {
+                isNull = true
+
+            }
+        });
+        if (isNull === false) {
+            return
+        }
+        const index = renderworkerINzone(data)
+
+        if (!zonesUl[index].hasWorkerListener) {
+
+            zonesUl[index].addEventListener("click", (e) => {
+                if (e.target.classList.contains("available-workers")) {
+                    workerChangeZone(e.target.dataset.idd, data)
+                    console.log(e.target.dataset.idd)
+                    console.log(workersInformation)
+                    renderworker()
+                    e.target.remove()
+                }
+            })
+
+            zonesUl[index].hasWorkerListener = true
+        }
+
     })
-});
+})
+
+
+
 
 
 
