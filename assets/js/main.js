@@ -29,7 +29,7 @@ let workersInformation = []
 const zoneSettings = {
     conference: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Cleaning Staff", "Other Roles"],
     reception: ["Manager", "Receptionist"],
-    server: ["Manager", "Receptionist"],
+    server: ["Manager", "Technicien IT"],
     security: ["Manager", "Security Agent"],
     staff: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Cleaning Staff", "Other Roles"],
     archives: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Other Roles"]
@@ -37,7 +37,7 @@ const zoneSettings = {
 
 function renderworker() {
     waitingList.innerHTML = ""
-    zonesUl.forEach(zone => zone.innerHTML = "")
+    // zonesUl.forEach(zone => zone.innerHTML = "")
     workersInformation.forEach(worker => {
         if (worker.zone === null) {
             const workerCardContainer = document.createElement("div")
@@ -64,11 +64,11 @@ function renderworker() {
                 zonesUl[1].appendChild(workerCardContainer)
             } else if (worker.zone === "server") {
                 zonesUl[2].appendChild(workerCardContainer)
-            }else if (worker.zone === "security") {
+            } else if (worker.zone === "security") {
                 zonesUl[3].appendChild(workerCardContainer)
-            }else if (worker.zone === "staff") {
+            } else if (worker.zone === "staff") {
                 zonesUl[4].appendChild(workerCardContainer)
-            }else if (worker.zone === "archives") {
+            } else if (worker.zone === "archives") {
                 zonesUl[5].appendChild(workerCardContainer)
             }
         }
@@ -190,8 +190,50 @@ function workerInformationStorage() {
     console.log(workersInformation)
 }
 
+let optionStatus = false
 function renderworkerINzone(data) {
-    
+    let index = null
+    if (data === "conference") {
+        index = 0
+    } else if (data === "reception") {
+        index = 1
+    } else if (data === "server") {
+        index = 2
+    } else if (data === "security") {
+        index = 3
+    } else if (data === "staff") {
+        index = 4
+    } else if (data === "archives") {
+        index = 5
+    }
+    if (zonesUl[index].children.length === 0) {
+        zonesUl.forEach(zone => {
+            if (zone.children.length > 0) {
+                zone.innerHTML = ''
+                optionStatus = false
+            }
+        })
+    }
+    if (optionStatus === false) {
+        allowedRole = zoneSettings[data]
+        workersInformation.forEach(worker => {
+            allowedRole.forEach(Role => {
+                if (worker.role === Role && worker.zone === null) {
+                    const workerCard = document.createElement("div")
+                    workerCard.className = "available-workers"
+                    workerCard.innerHTML = `<img src="${worker.url}" alt="">
+                                    <p>${worker.fullName} (${worker.role})</p>`
+                    zonesUl[index].appendChild(workerCard)
+                }
+            })
+        })
+        optionStatus = true
+    } else {
+        zonesUl[index].innerHTML = ""
+        optionStatus = false
+    }
+
+
 }
 
 addBtn.addEventListener("click", () => {
@@ -224,7 +266,6 @@ zonsBtn.forEach(zonBtn => {
         const data = zonBtn.dataset.zone
         console.log(data)
         renderworkerINzone(data)
-        renderworker()
     })
 });
 
