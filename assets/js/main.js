@@ -19,22 +19,61 @@ const emailInput = document.querySelector("#emailInput")
 const phoneInput = document.querySelector("#phoneInput")
 const urlInput = document.querySelector("#urlInput")
 
+// zons element 
+
+const zonsBtn = document.querySelectorAll(".add-to-zone-btn")
+const zonesUl = document.querySelectorAll(".staff-in-zone-list")
+
 let workersInformation = []
 
+const zoneSettings = {
+    conference: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Cleaning Staff", "Other Roles"],
+    reception: ["Manager", "Receptionist"],
+    server: ["Manager", "Receptionist"],
+    security: ["Manager", "Security Agent"],
+    staff: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Cleaning Staff", "Other Roles"],
+    archives: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Other Roles"]
+}
 
 function renderworker() {
     waitingList.innerHTML = ""
+    zonesUl.forEach(zone => zone.innerHTML = "")
     workersInformation.forEach(worker => {
-        const workerCardContainer = document.createElement("div")
-        workerCardContainer.className = "worker-card-container"
-        workerCardContainer.innerHTML = `<img class="worker-img" src="${worker.url}" alt="">
+        if (worker.zone === null) {
+            const workerCardContainer = document.createElement("div")
+            workerCardContainer.className = "worker-card-container"
+            workerCardContainer.innerHTML = `<img class="worker-img" src="${worker.url}" alt="">
                 <div>
                     <p style="font-weight: bold;">${worker.fullName}</p>
                     <p>${worker.role}</p>
                 </div>
                 <img class="info-icon" src="./assets/icons/question.png" alt="">`
-        waitingList.appendChild(workerCardContainer)
+            waitingList.appendChild(workerCardContainer)
+        } else {
+            const workerCardContainer = document.createElement("div")
+            workerCardContainer.className = "worker-card-container-in-zone"
+            workerCardContainer.innerHTML = `<img class="worker-img" src="${worker.url}" alt="">
+                        <div>
+                            <p style="font-weight: bold;">${worker.fullName}</p>
+                            <p>${worker.role}</p>
+                        </div>
+                        <img class="info-icon" src="./assets/icons/question.png" alt="">`
+            if (worker.zone === "conference") {
+                zonesUl[0].appendChild(workerCardContainer)
+            } else if (worker.zone === "reception") {
+                zonesUl[1].appendChild(workerCardContainer)
+            } else if (worker.zone === "server") {
+                zonesUl[2].appendChild(workerCardContainer)
+            }else if (worker.zone === "security") {
+                zonesUl[3].appendChild(workerCardContainer)
+            }else if (worker.zone === "staff") {
+                zonesUl[4].appendChild(workerCardContainer)
+            }else if (worker.zone === "archives") {
+                zonesUl[5].appendChild(workerCardContainer)
+            }
+        }
     });
+
 }
 
 renderworker()
@@ -128,7 +167,8 @@ function workerInformationStorage() {
         email: emailValue,
         phone: phoneValue,
         url: urlValue,
-        experience: []
+        experience: [],
+        zone: null
     }
     const allExp = document.querySelectorAll(".exp-input-container")
     for (let index = 0; index < allExp.length; index++) {
@@ -148,6 +188,10 @@ function workerInformationStorage() {
     workersInformation.push(workerInformation)
     console.log(workerInformation)
     console.log(workersInformation)
+}
+
+function renderworkerINzone(data) {
+    
 }
 
 addBtn.addEventListener("click", () => {
@@ -174,5 +218,15 @@ addExpBtn.addEventListener("click", (event) => {
     event.preventDefault()
     renderexp()
 })
+
+zonsBtn.forEach(zonBtn => {
+    zonBtn.addEventListener("click", () => {
+        const data = zonBtn.dataset.zone
+        console.log(data)
+        renderworkerINzone(data)
+        renderworker()
+    })
+});
+
 
 
