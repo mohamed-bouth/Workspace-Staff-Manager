@@ -233,14 +233,15 @@ body {
 
 .firstinput {
     display: flex;
+    flex-direction: column;
+    width: 70%;
     justify-content: space-between;
 }
 
 .firstinput-input {
     display: flex;
     flex-direction: column;
-    width: 48%;
-    gap: 10px;
+    width: 100%;
 }
 
 .firstinput-input input {
@@ -364,8 +365,20 @@ body {
     background-color: white !important;
 }
 
-.red-border {
-    border: 1px solid red !important;
+.form-first-input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-img-check-container {
+    display: flex;
+}
+
+.form-img-check-container img {
+    width: 92px;
+    height: 92px;
+    border: 1px solid gray;
+    border-radius: 100%;
 }
 
 
@@ -522,4 +535,9 @@ body {
 
 .info-exp-container span {
     font-weight: bold;
+}
+
+.red-border {
+    border: 1px solid red !important;
+    color: red !important;
 }

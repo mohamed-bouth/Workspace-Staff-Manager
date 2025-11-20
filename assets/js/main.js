@@ -18,6 +18,7 @@ const roleInput = document.querySelector("#roleInput")
 const emailInput = document.querySelector("#emailInput")
 const phoneInput = document.querySelector("#phoneInput")
 const urlInput = document.querySelector("#urlInput")
+const profileImg = document.querySelector("#profileImg")
 
 // zons element 
 
@@ -196,7 +197,7 @@ function InputValidation() {
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const isPhoneNumber = /^\+?\d{10,15}$/
     if (nameInput.value === "") {
-        alert("you forgot name")
+        nameInput.className = "red-border"
         return false
     }
     if (roleInput.value === "all") {
@@ -319,6 +320,7 @@ function renderworkerINzone(data) {
         optionStatus = true
     } else {
         option.forEach(el => el.remove())
+        renderworker()
         optionStatus = false
     }
     return index
@@ -402,3 +404,13 @@ exitBtn.addEventListener("click", () => {
     renderInfoContainer()
 })
 
+
+urlInput.addEventListener("input" , () => {
+    if(urlInput.value){
+        const image = urlInput.value
+        profileImg.src = image
+    }else {
+        profileImg.src = "./assets/icons/profile.png"
+    }
+    
+})

@@ -91,24 +91,29 @@
                 <img class="div-img" src="./assets/images/Salle-d-archives.png" alt="">
             </div>
     </main>
-    <div id="formOutContainer" class="form-out-container">
+    <div id="formOutContainer" class="form-out-container active">
         <div class="form-in-container">
             <h2>Worker Form</h2>
             <form class="form">
-                <div class="firstinput">
-                    <div class="firstinput-input">
-                        <input id="nameInput" type="text" placeholder="Full Name">
+                <div class="form-first-input-container">
+                    <div class="form-img-check-container">
+                        <img id="profileImg" src="./assets/icons/profile.png" alt="">
                     </div>
-                    <div class="firstinput-input">
-                        <select id="roleInput" class="searchs-input">
-                            <option value="all">Role</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Receptionist">Receptionist</option>
-                            <option value="Technicien IT">Technicien IT</option>
-                            <option value="Security Agent">Security Agent</option>
-                            <option value="Cleaning Staff">Cleaning Staff</option>
-                            <option value="Other Roles">Other Roles</option>
-                        </select>
+                    <div class="firstinput">
+                        <div id="nameContainer" class="firstinput-input">
+                            <input id="nameInput" type="text" placeholder="Full Name">
+                        </div>
+                        <div class="firstinput-input">
+                            <select id="roleInput" class="searchs-input">
+                                <option value="all">Role</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Receptionist">Receptionist</option>
+                                <option value="Technicien IT">Technicien IT</option>
+                                <option value="Security Agent">Security Agent</option>
+                                <option value="Cleaning Staff">Cleaning Staff</option>
+                                <option value="Other Roles">Other Roles</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="inputs">
@@ -142,8 +147,7 @@
             </div>
             <div class="information-container">
                 <div class="info-img-container">
-                    <img id="infoProfileImg" class="info-profile-img" src=""
-                        alt="">
+                    <img id="infoProfileImg" class="info-profile-img" src="" alt="">
                     <div>
                         <h2 id="infoFullname"></h2>
                         <h3 id="infoRole">Role:</h3>
