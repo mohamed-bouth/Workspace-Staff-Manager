@@ -433,3 +433,93 @@ body {
 .available-workers p {
     font-size: large;
 }
+
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.info-popup-out-container {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+    background-color: rgb(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.info-popup-out-container.active {
+    display: flex;
+}
+
+.info-popup-container {
+    background-color: var(--color-white);
+    width: 400px;
+    min-height: 300px;
+    border-radius: 10px;
+}
+
+.exit-container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.exit-btn {
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+.information-container {
+    width: 100%;
+    padding: 0 20px 20px 20px;
+}
+
+.info-profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    border: 1px solid black;
+}
+
+.info-img-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.info-contact-conatainer {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-contact-conatainer span {
+    font-weight: bold;
+}
+
+.info-exp-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-exp-container span {
+    font-weight: bold;
+}

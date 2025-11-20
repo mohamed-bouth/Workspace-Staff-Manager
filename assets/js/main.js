@@ -24,15 +24,70 @@ const urlInput = document.querySelector("#urlInput")
 const zonsBtn = document.querySelectorAll(".add-to-zone-btn")
 const zonesUl = document.querySelectorAll(".staff-in-zone-list")
 
+// info pop up element
+
+const infoContainer = document.querySelector("#infoContainer")
+const exitBtn = document.querySelector("#exitBtn")
+const infoProfileImg = document.querySelector("#infoProfileImg")
+const infoFullname = document.querySelector("#infoFullname")
+const infoRole = document.querySelector("#infoRole")
+const infoEmail = document.querySelector("#infoEmail")
+const infoPhone = document.querySelector("#infoPhone")
+const infoZone = document.querySelector("#infoZone")
+const infoExp = document.querySelector("#infoExp")
+
 let workersInformation = []
 
 const zoneSettings = {
     conference: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Cleaning Staff", "Other Roles"],
-    reception: ["Manager", "Receptionist"],
-    server: ["Manager", "Technicien IT"],
-    security: ["Manager", "Security Agent"],
+    reception: ["Manager", "Receptionist", "Cleaning Staff"],
+    server: ["Manager", "Technicien IT", "Cleaning Staff"],
+    security: ["Manager", "Security Agent", "Cleaning Staff"],
     staff: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Cleaning Staff", "Other Roles"],
     archives: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Other Roles"]
+}
+
+let infoStatus = false
+function renderInfoContainer() {
+    if (infoStatus === false) {
+        infoContainer.className = "info-popup-out-container active"
+        infoStatus = true
+    } else {
+        infoContainer.className = "info-popup-out-container"
+        infoStatus = false
+    }
+}
+
+function renderInfo(infoId) {
+    console.log(infoId)
+    workersInformation.forEach(worker => {
+        if (worker.id === infoId) {
+            console.log(infoProfileImg)
+            infoProfileImg.src = worker.url
+            infoFullname.textContent = worker.fullName
+            infoRole.textContent = `Role: ${worker.role}`
+            infoEmail.innerHTML = `<span>Gmail:</span> ${worker.email}`
+            infoPhone.innerHTML = `<span>Phone Number:</span> ${worker.phone}`
+
+            if (worker.zone === null) {
+                infoZone.innerHTML = `<span>Zone:</span> waiting list`
+            }else {
+                infoZone.innerHTML = `<span>Zone:</span> ${worker.zone}`
+            }
+            infoExp.innerHTML = ''
+            const expTitle = document.createElement("h3")
+            expTitle.textContent = "experience"
+            infoExp.appendChild(expTitle)
+            worker.experience.forEach(exp => {
+                const expContainer = document.createElement("div")
+                expContainer.innerHTML = `<p><span>Company:</span> ${exp.company}</p>
+                        <p><span>Role:</span> ${exp.companyRole}</p>
+                        <p><span>From:</span> ${exp.from}</p>
+                        <p><span>to:</span> ${exp.to}</p>`
+                infoExp.appendChild(expContainer)
+            });
+        }
+    })
 }
 
 function renderworker() {
@@ -43,23 +98,31 @@ function renderworker() {
     workersInformation.forEach(worker => {
         if (worker.zone === null) {
             const workerCardContainer = document.createElement("div")
-            workerCardContainer.className = "worker-card-container"
+            workerCardContainer.className = "worker-card-container cardo"
+            workerCardContainer.dataset.idd = worker.id
             workerCardContainer.innerHTML = `<img class="worker-img" src="${worker.url}" alt="">
                 <div>
                     <p style="font-weight: bold;">${worker.fullName}</p>
                     <p>${worker.role}</p>
                 </div>
-                <img class="info-icon" src="./assets/icons/question.png" alt="">`
+                <div class="icon-container">
+                    <img class="info-icon" src="./assets/icons/question.png" alt="">
+                    <img class="delete-icon" src="./assets/icons/delete.png" alt="">
+                </div>`
             waitingList.appendChild(workerCardContainer)
         } else {
             const workerCardContainer = document.createElement("div")
-            workerCardContainer.className = "worker-card-container-in-zone"
+            workerCardContainer.dataset.idd = worker.id
+            workerCardContainer.className = "worker-card-container-in-zone cardo"
             workerCardContainer.innerHTML = `<img class="worker-img" src="${worker.url}" alt="">
                         <div>
                             <p style="font-weight: bold;">${worker.fullName}</p>
                             <p>${worker.role}</p>
                         </div>
-                        <img class="info-icon" src="./assets/icons/question.png" alt="">`
+                        <div class="icon-container">
+                            <img class="info-icon" src="./assets/icons/question.png" alt="">
+                            <img class="delete-icon" src="./assets/icons/delete.png" alt="">
+                        </div>`
             if (worker.zone === "conference") {
                 zonesUl[0].appendChild(workerCardContainer)
             } else if (worker.zone === "reception") {
@@ -75,7 +138,17 @@ function renderworker() {
             }
         }
     });
-
+    const cardo = document.querySelectorAll(".cardo")
+    console.log(cardo)
+    cardo.forEach(card => {
+        card.addEventListener("click", (e) => {
+            if (e.target.classList.contains("info-icon")) {
+                const infoId = card.dataset.idd
+                renderInfoContainer()
+                renderInfo(infoId)
+            }
+        })
+    });
 }
 
 renderworker()
@@ -103,12 +176,6 @@ function renderexp() {
          <img class="dltExpBtn" src="./assets/icons/delete.png" alt="dlt">`
     expUl.appendChild(expInputContainer)
 }
-
-expUl.addEventListener("click", (e) => {
-    if (e.target.classList.contains("dltExpBtn")) {
-        e.target.parentElement.remove()
-    }
-})
 
 function InputValidation() {
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -256,6 +323,14 @@ function workerChangeZone(idd, data) {
     });
 }
 
+// add event listener element
+
+expUl.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dltExpBtn")) {
+        e.target.parentElement.remove()
+    }
+})
+
 addBtn.addEventListener("click", () => {
     renderform()
 })
@@ -317,8 +392,8 @@ zonsBtn.forEach(zonBtn => {
     })
 })
 
-
-
-
-
+exitBtn.addEventListener("click", () => {
+    console.log("work")
+    renderInfoContainer()
+})
 
