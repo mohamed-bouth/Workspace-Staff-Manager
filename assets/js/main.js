@@ -47,6 +47,19 @@ const zoneSettings = {
     archives: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Other Roles"]
 }
 
+
+function deleteWorkerFromZone(infoId) {
+    workersInformation.forEach(worker => {
+        if(worker.id === infoId){
+            if(worker.zone === null){
+                workersInformation = workersInformation.filter(worker => worker.id !== infoId);
+            }else{
+                worker.zone = null
+            }
+        }
+    })
+}
+
 let infoStatus = false
 function renderInfoContainer() {
     if (infoStatus === false) {
@@ -59,10 +72,8 @@ function renderInfoContainer() {
 }
 
 function renderInfo(infoId) {
-    console.log(infoId)
     workersInformation.forEach(worker => {
         if (worker.id === infoId) {
-            console.log(infoProfileImg)
             infoProfileImg.src = worker.url
             infoFullname.textContent = worker.fullName
             infoRole.textContent = `Role: ${worker.role}`
@@ -139,13 +150,17 @@ function renderworker() {
         }
     });
     const cardo = document.querySelectorAll(".cardo")
-    console.log(cardo)
     cardo.forEach(card => {
         card.addEventListener("click", (e) => {
             if (e.target.classList.contains("info-icon")) {
                 const infoId = card.dataset.idd
                 renderInfoContainer()
                 renderInfo(infoId)
+            }
+            if(e.target.classList.contains("delete-icon")) {
+                const infoId = card.dataset.idd
+                deleteWorkerFromZone(infoId)
+                renderworker()
             }
         })
     });
@@ -170,9 +185,9 @@ function renderexp() {
     expInputContainer.innerHTML = `<input class="exp-input" type="text" placeholder="Company">
          <input class="exp-input" type="text" placeholder="Role">
          <input class="exp-input" type="text" placeholder="From" onfocus="this.type='date'"
-         onblur="if(!this.value)this.type='text'">
+         onblur="if(!this.value)this.type='date'">
          <input class="exp-input inp" type="text" placeholder="to" onfocus="this.type='date'"
-         onblur="if(!this.value)this.type='text'">
+         onblur="if(!this.value)this.type='date'">
          <img class="dltExpBtn" src="./assets/icons/delete.png" alt="dlt">`
     expUl.appendChild(expInputContainer)
 }
@@ -255,8 +270,6 @@ function workerInformationStorage() {
         workerInformation.experience.push(exp)
     }
     workersInformation.push(workerInformation)
-    console.log(workerInformation)
-    console.log(workersInformation)
 }
 
 let optionStatus = false
@@ -277,11 +290,9 @@ function renderworkerINzone(data) {
     }
     const option = document.querySelectorAll(".available-workers")
     let count = zonesUl[index].querySelectorAll(".available-workers").length
-    console.log(count)
     if (count === 0) {
         zonesUl.forEach(zone => {
             if (zone.children.length > 0) {
-                console.log("remove top")
                 renderworker()
                 option.forEach(el => el.remove())
                 optionStatus = false
@@ -289,7 +300,6 @@ function renderworkerINzone(data) {
         })
     }
     if (optionStatus === false) {
-        console.log("add")
         zonesUl[index].querySelectorAll(".worker-card-container-in-zone").forEach(worker => {
             worker.remove()
         });
@@ -308,7 +318,6 @@ function renderworkerINzone(data) {
         })
         optionStatus = true
     } else {
-        console.log("remove bottom")
         option.forEach(el => el.remove())
         optionStatus = false
     }
@@ -361,7 +370,6 @@ zonsBtn.forEach(zonBtn => {
         const data = zonBtn.dataset.zone;
 
         allowed = zoneSettings[data]
-        console.log(allowed)
         let isNull = false
         workersInformation.forEach(worker => {
             if (worker.zone === null) {
@@ -379,8 +387,6 @@ zonsBtn.forEach(zonBtn => {
             zonesUl[index].addEventListener("click", (e) => {
                 if (e.target.classList.contains("available-workers")) {
                     workerChangeZone(e.target.dataset.idd, data)
-                    console.log(e.target.dataset.idd)
-                    console.log(workersInformation)
                     renderworker()
                     e.target.remove()
                 }
@@ -393,7 +399,6 @@ zonsBtn.forEach(zonBtn => {
 })
 
 exitBtn.addEventListener("click", () => {
-    console.log("work")
     renderInfoContainer()
 })
 
