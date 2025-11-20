@@ -208,15 +208,24 @@ function renderworkerINzone(data) {
     } else if (data === "archives") {
         index = 5
     }
-    if (zonesUl[index].children.length === 0) {
+    const option = document.querySelectorAll(".available-workers")
+    let count = zonesUl[index].querySelectorAll(".available-workers").length
+    console.log(count)
+    if (count === 0) {
         zonesUl.forEach(zone => {
             if (zone.children.length > 0) {
-                zone.innerHTML = ''
+                console.log("remove top")
+                renderworker()
+                option.forEach(el => el.remove())
                 optionStatus = false
             }
         })
     }
     if (optionStatus === false) {
+        console.log("add")
+        zonesUl[index].querySelectorAll(".worker-card-container-in-zone").forEach(worker => {
+            worker.remove()
+        });
         allowedRole = zoneSettings[data]
         workersInformation.forEach(worker => {
             allowedRole.forEach(Role => {
@@ -232,7 +241,8 @@ function renderworkerINzone(data) {
         })
         optionStatus = true
     } else {
-        zonesUl[index].innerHTML = ""
+        console.log("remove bottom")
+        option.forEach(el => el.remove())
         optionStatus = false
     }
     return index
