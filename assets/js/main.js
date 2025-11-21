@@ -61,6 +61,16 @@ const zoneLimitsSettings = {
     archives: 8
 }
 
+function showPopup() {
+    const popup = document.getElementById("myPopup")
+
+    popup.classList.add("show")
+
+    setTimeout(() => {
+        popup.classList.remove("show")
+    }, 3000)
+}
+
 function NumberOfWorkerInZone() {
     conferenceZone = 0
     reciptionZone = 0
@@ -277,6 +287,7 @@ renderworker()
 let formStatus = false
 function renderform() {
     if (formStatus === false) {
+        profileImg.src = "./assets/icons/profile.png"
         formOutContainer.className = "form-out-container active"
         nameInput.className = ""
         nameInput.value = ""
@@ -406,7 +417,6 @@ function workerInformationStorage() {
     const allExp = document.querySelectorAll(".exp-input-container")
     for (let i = 0; i < allExp.length; i++) {
         const inputs = allExp[i].querySelectorAll(".exp-input")
-        console.log(inputs)
         let inputsValue = []
         for (let j = 0; j < 4; j++) {
             inputsValue[j] = inputs[j].value
@@ -521,7 +531,7 @@ zonsBtn.forEach(zonBtn => {
         const data = zonBtn.dataset.zone;
         let retu = zoneLimit(data)
         if (retu === false) {
-            alert("the room is plain")
+            showPopup()
             return
         }
         allowed = zoneSettings[data]
