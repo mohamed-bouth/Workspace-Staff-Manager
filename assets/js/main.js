@@ -19,6 +19,8 @@ const emailInput = document.querySelector("#emailInput")
 const phoneInput = document.querySelector("#phoneInput")
 const urlInput = document.querySelector("#urlInput")
 const profileImg = document.querySelector("#profileImg")
+const optionAll = document.querySelector("#optionAll")
+const expContainer = document.querySelector(".exp-container")
 
 // zons element 
 
@@ -173,6 +175,19 @@ let formStatus = false
 function renderform() {
     if (formStatus === false) {
         formOutContainer.className = "form-out-container active"
+        nameInput.className = ""
+        nameInput.value = ""
+        roleInput.className = ""
+        roleInput.value = "all"
+        emailInput.className = ""
+        emailInput.value = ""
+        phoneInput.className = ""
+        phoneInput.value = ""
+        urlInput.className = ""
+        urlInput.value = ""
+        expUl.innerHTML = ""
+        expContainer.className = "exp-container"
+        expContainer.textContent = "Experience"
         formStatus = true
     } else {
         formOutContainer.className = "form-out-container"
@@ -186,9 +201,9 @@ function renderexp() {
     expInputContainer.innerHTML = `<input class="exp-input" type="text" placeholder="Company">
          <input class="exp-input" type="text" placeholder="Role">
          <input class="exp-input" type="text" placeholder="From" onfocus="this.type='date'"
-         onblur="if(!this.value)this.type='date'">
+         onblur="if(!this.value)this.type='text'">
          <input class="exp-input inp" type="text" placeholder="to" onfocus="this.type='date'"
-         onblur="if(!this.value)this.type='date'">
+         onblur="if(!this.value)this.type='text'">
          <img class="dltExpBtn" src="./assets/icons/delete.png" alt="dlt">`
     expUl.appendChild(expInputContainer)
 }
@@ -196,45 +211,75 @@ function renderexp() {
 function InputValidation() {
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const isPhoneNumber = /^\+?\d{10,15}$/
+    let checkInput = true
     if (nameInput.value === "") {
         nameInput.className = "red-border"
-        return false
+        nameInput.placeholder = "Please check the Full name"
+        checkInput = false
+    }else{
+        nameInput.className = ""
     }
     if (roleInput.value === "all") {
-        alert("you dont choose a role")
-        return false
+        roleInput.className = "red-border"
+        optionAll.textContent = "Choose a role"
+        checkInput = false
+    }else{
+        roleInput.className = "searchs-input"
     }
     if (!isEmail.test(emailInput.value)) {
-        alert("check your email")
-        return false
+        emailInput.className = "red-border"
+        emailInput.placeholder = "Email is invalide"
+        checkInput = false
+    }else {
+        emailInput.className = ""
     }
     if (!isPhoneNumber.test((phoneInput.value).replace(/[^\d+]/g, ''))) {
-        alert("check your phone number")
-        return false
+        phoneInput.className = "red-border"
+        phoneInput.placeholder = "phone Number is invalide"
+        checkInput = false
+    }else {
+        phoneInput.className = ""
     }
     if (urlInput.value === "") {
-        alert("you forgot URl")
-        return false
+        urlInput.className = "red-border"
+        urlInput.placeholder = "URL is invalide"
+        checkInput = false
+    }else {
+        urlInput.className = ""
     }
     const allExp = document.querySelectorAll(".exp-input-container")
     if (allExp.length === 0) {
-        alert("you forgot experience")
+        expContainer.className = "exp-container red-border"
+        expContainer.textContent = "you forgot a experience"
         return false
     } else {
-        let flag = true
+        expContainer.className = "exp-container"
+        expContainer.textContent = "Experience"
         for (let index = 0; index < allExp.length; index++) {
             const inputs = allExp[index].querySelectorAll(".exp-input")
             for (let index = 0; index < 4; index++) {
                 if (inputs[index].value === "") {
-                    flag = false
-                    break
+                    inputs[index].className = "exp-input red-border"
+                    checkInput = false
+                    
                 }
             }
+            if(isNaN(Date.parse(inputs[2].value)) || isNaN(Date.parse(inputs[3].value))){
+                inputs[2].className = "exp-input red-border"
+                inputs[3].className = "exp-input red-border"
+                checkInput = false
+            }
+            let firstDate = new Date(inputs[2].value)
+            let secondeDate = new Date(inputs[3].value)
+            if(firstDate >= secondeDate){
+                inputs[2].className = "exp-input red-border"
+                inputs[3].className = "exp-input red-border"
+                checkInput = false
+            }
         }
-        if (flag === false) {
-            alert("check your experience input")
-            return false
-        }
+    }
+    if(checkInput === false){
+        return false
     }
     return true
 }
@@ -256,11 +301,12 @@ function workerInformationStorage() {
         zone: null
     }
     const allExp = document.querySelectorAll(".exp-input-container")
-    for (let index = 0; index < allExp.length; index++) {
-        const inputs = allExp[index].querySelectorAll(".exp-input")
+    for (let i = 0; i < allExp.length; i++) {
+        const inputs = allExp[i].querySelectorAll(".exp-input")
+        console.log(inputs)
         let inputsValue = []
-        for (let index = 0; index < 4; index++) {
-            inputsValue[index] = inputs[index].value
+        for (let j = 0; j < 4; j++) {
+            inputsValue[j] = inputs[j].value
         }
         let exp = {
             company: inputsValue[0],

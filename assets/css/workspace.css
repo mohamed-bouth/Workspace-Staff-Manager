@@ -434,6 +434,7 @@ body {
     align-items: center;
     padding: 10px 10px;
     gap: 10px;
+    cursor: pointer;
 }
 
 .available-workers img {
@@ -539,5 +540,17 @@ body {
 
 .red-border {
     border: 1px solid red !important;
-    color: red !important;
+    color: rgb(255, 44, 44);
+}
+
+.red-border::placeholder {
+    color: rgb(255, 44, 44);
+}
+
+.red-border-option {
+    color: red;
+}
+
+.cardo {
+    cursor: default;
 }
