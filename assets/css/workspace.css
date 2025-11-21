@@ -156,7 +156,7 @@ body {
     overflow: auto;
 }
 
-.staff-in-zone-list::-webkit-scrollbar{
+.staff-in-zone-list::-webkit-scrollbar {
     display: none;
 }
 
@@ -385,6 +385,12 @@ body {
 @media (max-width: 400px) {
     .form-in-container {
         width: 100%;
+    }
+
+    .form-out-container {
+        position: absolute;
+        height: 300vh;
+        align-items: start;
     }
 }
 
