@@ -41,6 +41,11 @@ const infoPhone = document.querySelector("#infoPhone")
 const infoZone = document.querySelector("#infoZone")
 const infoExp = document.querySelector("#infoExp")
 
+// side bar search element
+
+const searchInput = document.querySelector("#searchInput")
+const searchByOption = document.querySelector("#searchByOption")
+
 let workersInformation = []
 
 const zoneSettings = {
@@ -493,6 +498,67 @@ function workerChangeZone(idd, data) {
     });
 }
 
+function renderByfilter(input, option) {
+    if (input === "" || option === "all") {
+        renderworker()
+        return
+    }
+    if (input) {
+        waitingList.innerHTML = ""
+        workersInformation.forEach(worker => {
+            if (worker.fullName.toLowerCase().includes(input)) {
+                const workerCardContainer = document.createElement("div")
+                workerCardContainer.className = "worker-card-container cardo"
+                workerCardContainer.dataset.idd = worker.id
+                workerCardContainer.innerHTML = `<img class="worker-img" src="${worker.url}" alt="">
+                <div>
+                    <p style="font-weight: bold;">${worker.fullName}</p>
+                    <p>${worker.role}</p>
+                </div>
+                <div class="icon-container">
+                    <img class="info-icon" src="./assets/icons/question.png" alt="">
+                    <img class="delete-icon" src="./assets/icons/delete.png" alt="">
+                </div>`
+                waitingList.appendChild(workerCardContainer)
+            }
+        });
+    } else {
+        waitingList.innerHTML = ""
+        workersInformation.forEach(worker => {
+            if (worker.role.includes(option)) {
+                const workerCardContainer = document.createElement("div")
+                workerCardContainer.className = "worker-card-container cardo"
+                workerCardContainer.dataset.idd = worker.id
+                workerCardContainer.innerHTML = `<img class="worker-img" src="${worker.url}" alt="">
+                <div>
+                    <p style="font-weight: bold;">${worker.fullName}</p>
+                    <p>${worker.role}</p>
+                </div>
+                <div class="icon-container">
+                    <img class="info-icon" src="./assets/icons/question.png" alt="">
+                    <img class="delete-icon" src="./assets/icons/delete.png" alt="">
+                </div>`
+                waitingList.appendChild(workerCardContainer)
+            }
+        });
+    }
+    const cardo = document.querySelectorAll(".cardo")
+    cardo.forEach(card => {
+        card.addEventListener("click", (e) => {
+            if (e.target.classList.contains("info-icon")) {
+                const infoId = card.dataset.idd
+                renderInfoContainer()
+                renderInfo(infoId)
+            }
+            if (e.target.classList.contains("delete-icon")) {
+                const infoId = card.dataset.idd
+                deleteWorkerFromZone(infoId)
+                renderworker()
+            }
+        })
+    });
+}
+
 // add event listener element
 
 expUl.addEventListener("click", (e) => {
@@ -576,4 +642,16 @@ urlInput.addEventListener("input", () => {
         profileImg.src = "./assets/icons/profile.png"
     }
 
+})
+
+searchInput.addEventListener("input", () => {
+    const searchOptionValue = null
+    const searchInputValue = searchInput.value.toLowerCase()
+    renderByfilter(searchInputValue, searchOptionValue)
+})
+
+searchByOption.addEventListener("change", () => {
+    const searchInputValue = null
+    const searchOptionValue = searchByOption.value
+    renderByfilter(searchInputValue, searchOptionValue)
 })
