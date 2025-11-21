@@ -27,6 +27,7 @@ const expContainer = document.querySelector(".exp-container")
 const zonsBtn = document.querySelectorAll(".add-to-zone-btn")
 const zonesUl = document.querySelectorAll(".staff-in-zone-list")
 const zone = document.querySelectorAll(".zone")
+const zonesNumber = document.querySelectorAll(".zone_number")
 
 // info pop up element
 
@@ -51,58 +52,112 @@ const zoneSettings = {
     archives: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Other Roles"]
 }
 
-function requiredZone(){
-    reciptionZone = true
-    serverZone = true
-    securityZone = true
-    archivesZone = true
+const zoneLimitsSettings = {
+    conference: 10,
+    reception: 5,
+    server: 8,
+    security: 5,
+    staff: 20,
+    archives: 8
+}
+
+function NumberOfWorkerInZone() {
+    conferenceZone = 0
+    reciptionZone = 0
+    serverZone = 0
+    securityZone = 0
+    staffZone = 0
+    archivesZone = 0
     workersInformation.forEach(worker => {
-        if(worker.zone === "reception"){
+        if (worker.zone === "conference") {
+            conferenceZone += 1
+        }
+        if (worker.zone === "reception") {
+            reciptionZone += 1
+        }
+        if (worker.zone === "server") {
+            serverZone += 1
+        }
+        if (worker.zone === "security") {
+            securityZone += 1
+        }
+        if (worker.zone === "staff") {
+            staffZone += 1
+        }
+        if (worker.zone === "archives") {
+            archivesZone += 1
+        }
+    });
+    zonesNumber[0].textContent = `${conferenceZone}/${zoneLimitsSettings["conference"]}`
+    zonesNumber[1].textContent = `${reciptionZone}/${zoneLimitsSettings["reception"]}`
+    zonesNumber[2].textContent = `${serverZone}/${zoneLimitsSettings["server"]}`
+    zonesNumber[3].textContent = `${securityZone}/${zoneLimitsSettings["security"]}`
+    zonesNumber[4].textContent = `${staffZone}/${zoneLimitsSettings["staff"]}`
+    zonesNumber[5].textContent = `${archivesZone}/${zoneLimitsSettings["archives"]}`
+}
+
+function zoneLimit(data) {
+    let limits = zoneLimitsSettings[data]
+    let workerInZone = 0
+    workersInformation.forEach(worker => {
+        if (worker.zone === data) {
+            workerInZone += 1
+        }
+    });
+    if (workerInZone >= limits) {
+        return false
+    }
+    return true
+}
+
+function requiredZone() {
+    let reciptionZone = true
+    let serverZone = true
+    let securityZone = true
+    let archivesZone = true
+    workersInformation.forEach(worker => {
+        if (worker.zone === "reception") {
             reciptionZone = false
         }
-        if(worker.zone === "server"){
+        if (worker.zone === "server") {
             serverZone = false
         }
-        if(worker.zone === "security"){
+        if (worker.zone === "security") {
             securityZone = false
         }
-        if(worker.zone === "archives"){
+        if (worker.zone === "archives") {
             archivesZone = false
         }
     });
-    if(reciptionZone){
+    if (reciptionZone) {
         zone[1].classList.add("required-zone")
-        console.log("work")
-    }else{
+    } else {
         zone[1].classList.remove("required-zone")
     }
-    if(serverZone){
+    if (serverZone) {
         zone[2].classList.add("required-zone")
-        console.log("work")
-    }else{
+    } else {
         zone[2].classList.remove("required-zone")
     }
-    if(securityZone){
+    if (securityZone) {
         zone[3].classList.add("required-zone")
-        console.log("work")
-    }else{
+    } else {
         zone[3].classList.remove("required-zone")
     }
-    if(archivesZone){
+    if (archivesZone) {
         zone[5].classList.add("required-zone")
-        console.log("work")
-    }else{
-        zone[5].classList.remove("required-zone") 
+    } else {
+        zone[5].classList.remove("required-zone")
     }
 }
 requiredZone()
 
 function deleteWorkerFromZone(infoId) {
     workersInformation.forEach(worker => {
-        if(worker.id === infoId){
-            if(worker.zone === null){
+        if (worker.id === infoId) {
+            if (worker.zone === null) {
                 workersInformation = workersInformation.filter(worker => worker.id !== infoId);
-            }else{
+            } else {
                 worker.zone = null
             }
         }
@@ -131,7 +186,7 @@ function renderInfo(infoId) {
 
             if (worker.zone === null) {
                 infoZone.innerHTML = `<span>Zone:</span> waiting list`
-            }else {
+            } else {
                 infoZone.innerHTML = `<span>Zone:</span> ${worker.zone}`
             }
             infoExp.innerHTML = ''
@@ -206,7 +261,7 @@ function renderworker() {
                 renderInfoContainer()
                 renderInfo(infoId)
             }
-            if(e.target.classList.contains("delete-icon")) {
+            if (e.target.classList.contains("delete-icon")) {
                 const infoId = card.dataset.idd
                 deleteWorkerFromZone(infoId)
                 renderworker()
@@ -214,6 +269,7 @@ function renderworker() {
         })
     });
     requiredZone()
+    NumberOfWorkerInZone()
 }
 
 renderworker()
@@ -263,35 +319,35 @@ function InputValidation() {
         nameInput.className = "red-border"
         nameInput.placeholder = "Please check the Full name"
         checkInput = false
-    }else{
+    } else {
         nameInput.className = ""
     }
     if (roleInput.value === "all") {
         roleInput.className = "red-border"
         optionAll.textContent = "Choose a role"
         checkInput = false
-    }else{
+    } else {
         roleInput.className = "searchs-input"
     }
     if (!isEmail.test(emailInput.value)) {
         emailInput.className = "red-border"
         emailInput.placeholder = "Email is invalide"
         checkInput = false
-    }else {
+    } else {
         emailInput.className = ""
     }
     if (!isPhoneNumber.test((phoneInput.value).replace(/[^\d+]/g, ''))) {
         phoneInput.className = "red-border"
         phoneInput.placeholder = "phone Number is invalide"
         checkInput = false
-    }else {
+    } else {
         phoneInput.className = ""
     }
     if (urlInput.value === "") {
         urlInput.className = "red-border"
         urlInput.placeholder = "URL is invalide"
         checkInput = false
-    }else {
+    } else {
         urlInput.className = ""
     }
     const allExp = document.querySelectorAll(".exp-input-container")
@@ -308,24 +364,24 @@ function InputValidation() {
                 if (inputs[index].value === "") {
                     inputs[index].className = "exp-input red-border"
                     checkInput = false
-                    
+
                 }
             }
-            if(isNaN(Date.parse(inputs[2].value)) || isNaN(Date.parse(inputs[3].value))){
+            if (isNaN(Date.parse(inputs[2].value)) || isNaN(Date.parse(inputs[3].value))) {
                 inputs[2].className = "exp-input red-border"
                 inputs[3].className = "exp-input red-border"
                 checkInput = false
             }
             let firstDate = new Date(inputs[2].value)
             let secondeDate = new Date(inputs[3].value)
-            if(firstDate >= secondeDate){
+            if (firstDate >= secondeDate) {
                 inputs[2].className = "exp-input red-border"
                 inputs[3].className = "exp-input red-border"
                 checkInput = false
             }
         }
     }
-    if(checkInput === false){
+    if (checkInput === false) {
         return false
     }
     return true
@@ -463,7 +519,11 @@ addExpBtn.addEventListener("click", (event) => {
 zonsBtn.forEach(zonBtn => {
     zonBtn.addEventListener("click", () => {
         const data = zonBtn.dataset.zone;
-
+        let retu = zoneLimit(data)
+        if (retu === false) {
+            alert("the room is plain")
+            return
+        }
         allowed = zoneSettings[data]
         let isNull = false
         workersInformation.forEach(worker => {
@@ -498,12 +558,12 @@ exitBtn.addEventListener("click", () => {
 })
 
 
-urlInput.addEventListener("input" , () => {
-    if(urlInput.value){
+urlInput.addEventListener("input", () => {
+    if (urlInput.value) {
         const image = urlInput.value
         profileImg.src = image
-    }else {
+    } else {
         profileImg.src = "./assets/icons/profile.png"
     }
-    
+
 })
