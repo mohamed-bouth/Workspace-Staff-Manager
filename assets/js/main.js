@@ -26,6 +26,7 @@ const expContainer = document.querySelector(".exp-container")
 
 const zonsBtn = document.querySelectorAll(".add-to-zone-btn")
 const zonesUl = document.querySelectorAll(".staff-in-zone-list")
+const zone = document.querySelectorAll(".zone")
 
 // info pop up element
 
@@ -50,6 +51,51 @@ const zoneSettings = {
     archives: ["Manager", "Receptionist", "Technicien IT", "Security Agent", "Other Roles"]
 }
 
+function requiredZone(){
+    reciptionZone = true
+    serverZone = true
+    securityZone = true
+    archivesZone = true
+    workersInformation.forEach(worker => {
+        if(worker.zone === "reception"){
+            reciptionZone = false
+        }
+        if(worker.zone === "server"){
+            serverZone = false
+        }
+        if(worker.zone === "security"){
+            securityZone = false
+        }
+        if(worker.zone === "archives"){
+            archivesZone = false
+        }
+    });
+    if(reciptionZone){
+        zone[1].classList.add("required-zone")
+        console.log("work")
+    }else{
+        zone[1].classList.remove("required-zone")
+    }
+    if(serverZone){
+        zone[2].classList.add("required-zone")
+        console.log("work")
+    }else{
+        zone[2].classList.remove("required-zone")
+    }
+    if(securityZone){
+        zone[3].classList.add("required-zone")
+        console.log("work")
+    }else{
+        zone[3].classList.remove("required-zone")
+    }
+    if(archivesZone){
+        zone[5].classList.add("required-zone")
+        console.log("work")
+    }else{
+        zone[5].classList.remove("required-zone") 
+    }
+}
+requiredZone()
 
 function deleteWorkerFromZone(infoId) {
     workersInformation.forEach(worker => {
@@ -167,6 +213,7 @@ function renderworker() {
             }
         })
     });
+    requiredZone()
 }
 
 renderworker()

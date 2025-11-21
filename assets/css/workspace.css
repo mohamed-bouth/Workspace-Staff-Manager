@@ -163,7 +163,7 @@ body {
 .div-img {
     margin-top: 36.6px;
     width: 100%;
-    height: 90%;
+    height: 85.5%;
     position: absolute;
     z-index: 1;
     border-bottom-right-radius: 10px;
@@ -553,4 +553,9 @@ body {
 
 .cardo {
     cursor: default;
+}
+
+.required-zone {
+    border: 5px solid red;
+    box-shadow: 0 0 10px red;
 }
